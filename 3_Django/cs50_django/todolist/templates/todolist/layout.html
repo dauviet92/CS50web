@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+
+<link rel="stylesheet" href="{% static 'todolist/styles.css' %}">
+
+<html langue ="en">
+    <head>TODO List</head>
+
+        <body>
+            {% block body %}
+            {% endblock %}
+
+        </body> 
+
+        <br>
+        <br>
+    <footer>
+        <nav>
+            <a href="{% url 'todolist:index' %}">View Tasks</a>
+            <a href="{% url 'todolist:add' %}">Add New Task</a>
+            <a href="{% url 'todolist:add1' %}">Add New Task builtin Form</a>
+        </nav>
+    </footer>
+
+</html>

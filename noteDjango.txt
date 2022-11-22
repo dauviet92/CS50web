@@ -1,0 +1,7 @@
+
+#Django command line
+
+python manage.py clearsessions  => clear session
+python manage.py runserver = create server
+python manage.py migrate  => initialize table 
+python manage.py flush => clean data table 
