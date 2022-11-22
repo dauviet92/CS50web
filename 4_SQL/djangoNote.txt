@@ -1,0 +1,94 @@
+https://cs50.harvard.edu/web/2020/notes/4/
+
+
+Let’s get started on using models by creating a django project for our airline, and creating an app within that project.
+
+django-admin startproject airline
+cd airline
+python manage.py startapp flights
+
+
+Add flights to the INSTALLED_APPS list in settings.py
+Add a route for flights in urls.py:
+
+ path("flights/", include("flights.urls")),
+
+
+Create a urls.py file within the flights application. 
+And fill it with standard urls.py imports and lists.
+
+
+Now, rather than creating actual paths and getting started on views.py,
+ we’ll create some models in the models.py file. In this file,
+ we’ll outline what data we want to store in our application. 
+Then, Django will determine the SQL syntax necessary to store information on each of our models. 
+Let’s take a look at what a model for a single flight might look like:
+
+
+class Flight(models.Model):
+    origin = models.CharField(max_length=64)
+    destination = models.CharField(max_length=64)
+    duration = models.IntegerField()
+
+
+Now, even though we’ve created a model, we do not yet have a database to store this information. 
+to create a database from our models, we navigate to the main directory of our project 
+and run the command.
+
+python manage.py makemigrations
+
+Next, to apply these migrations to our database, we run the command
+
+python manage.py migrate
+
+Now, you’ll see some default migrations have been applied along with our own, 
+and you’ll also notice that we now have a file called db.sqlite3 in our project’s directory
+
+Now, to begin working adding information to and manipulating this database, 
+we can enter Django’s shell where we can run Python commands within our project.
+
+python manage.py shell
+
+# Import our flight model
+In [1]: from flights.models import Flight
+
+# Create a new flight
+In [2]: f = Flight(origin="New York", destination="London", duration=415)
+
+# Instert that flight into our database
+In [3]: f.save()
+
+# Query for all flights stored in the database
+In [4]: Flight.objects.all()
+
+flights = Flight.objects.all()
+flight = flights.first()
+flight.delete()
+
+
+We have provided the argument blank=True which means a passenger can have no flights
+We have added a related_name that serves the same purpose as it did earlier: it will allow us to find all passengers on a given flight.
+
+class Passenger(models.Model):
+    first = models.CharField(max_length=64)
+    last = models.CharField(max_length=64)
+    flights = models.ManyToManyField(Flight, blank=True, related_name="passengers")
+
+    def __str__(self):
+        return f"{self.first} {self.last}"
+
+Customizeable admin interface
+in admin.py to see more infomration
+
+class FlightAdmin(admin.ModelAdmin):
+    list_display = ("id", "origin", "destination", "duration")
+
+# Register your models here.
+admin.site.register(Flight, FlightAdmin)
+change view in admin interface
+
+class FlightAdmin(admin.ModelAdmin):
+    list_display = ("id", "origin", "destination", "duration")
+
+# Register your models here.
+admin.site.register(Flight, FlightAdmin)

@@ -5,3 +5,10 @@ python manage.py clearsessions  => clear session
 python manage.py runserver = create server
 python manage.py migrate  => initialize table 
 python manage.py flush => clean data table 
+
+python manage.py makemigrations => create database for project
+python manage.py createsuperuser => create an administrative user
+Username: admin
+Email address: dauqsxuqfaafnavqiet@gmail.com
+Vqslapq fieqstafvodqsfafdoi visit /admin
+

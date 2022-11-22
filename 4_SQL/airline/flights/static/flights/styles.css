@@ -1,0 +1,13 @@
+head {
+    text-align: center;
+    color: green
+}
+
+ul li {
+    color:green;
+}
+
+footer nav a {
+    font-size: 15px;
+    padding: 20px;
+}
